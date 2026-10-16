@@ -1,0 +1,8 @@
+{
+  "appId": "com.aegiscold.wallet",
+  "appName": "AegisCold",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

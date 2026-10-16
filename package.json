@@ -8,9 +8,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "cap:sync": "cap sync",
+    "cap:build": "vite build && cap sync"
   },
   "dependencies": {
+    "@capacitor/core": "^8.5.3",
     "@google/genai": "^2.4.0",
     "@noble/hashes": "^2.4.0",
     "@noble/secp256k1": "^3.2.0",
@@ -28,6 +31,9 @@
     "vite": "^8.3.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -35,7 +41,6 @@
     "esbuild": "^0.25.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
-    "typescript": "^7.0.2",
-    "@types/express": "^4.17.21"
+    "typescript": "^7.0.2"
   }
 }
