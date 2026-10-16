@@ -45,7 +45,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -64,14 +63,21 @@ jobs:
         run: |
           npm run build
 
-      - name: Initialize & Sync Capacitor Android
+      - name: Ensure Android Project & Sync Capacitor
         run: |
-          if [ ! -d "android" ]; then
-            echo "Android project not found. Initializing Android platform via Capacitor..."
+          # 检查是否存在完整的 Android 目录与 gradlew，若不存在则完整执行 cap add android
+          if [ ! -d "android" ] || [ ! -f "android/gradlew" ] || [ ! -f "android/build.gradle" ]; then
+            echo "Android project or Gradle config not found. Generating full Android platform..."
+            rm -rf android
             npx cap add android
           fi
-          echo "Syncing web assets to Capacitor Android..."
+          echo "Syncing web assets and plugins to Android..."
           npx cap sync android
+
+      - name: Setup Gradle Cache
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          build-root-directory: android
 
       - name: Make Gradle Wrapper Executable
         run: |

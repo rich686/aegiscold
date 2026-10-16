@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AegisCold</string>
+    <string name="title_activity_main">AegisCold</string>
+    <string name="package_name">com.aegiscold.wallet</string>
+    <string name="custom_url_scheme">com.aegiscold.wallet</string>
+</resources>
