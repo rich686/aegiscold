@@ -37,6 +37,21 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
+      - name: Auto Upgrade Android SDK to 36
+        run: |
+          if [ -f "android/variables.gradle" ]; then
+            sed -i 's/compileSdkVersion = [0-9]*/compileSdkVersion = 36/g' android/variables.gradle
+            sed -i 's/targetSdkVersion = [0-9]*/targetSdkVersion = 36/g' android/variables.gradle
+          fi
+          if [ -f "android/build.gradle" ]; then
+            sed -i 's/compileSdk [0-9]*/compileSdk 36/g' android/build.gradle
+            sed -i 's/targetSdk [0-9]*/targetSdk 36/g' android/build.gradle
+          fi
+          if [ -f "android/app/build.gradle" ]; then
+            sed -i 's/compileSdk [0-9]*/compileSdk 36/g' android/app/build.gradle
+            sed -i 's/targetSdk [0-9]*/targetSdk 36/g' android/app/build.gradle
+          fi
+
       - name: Build Debug APK
         working-directory: ./android
         run: |
