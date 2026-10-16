@@ -24,11 +24,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Build Web App
-        run: npm run build
+      - name: Install & Build Web
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
 
       - name: Init and Sync Capacitor Android
         run: |
@@ -37,24 +36,11 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
-      - name: Fix Android SDK Versions to 36
-        run: |
-          if [ -f "android/variables.gradle" ]; then
-            sed -i 's/compileSdkVersion = [0-9]*/compileSdkVersion = 36/g' android/variables.gradle
-            sed -i 's/targetSdkVersion = [0-9]*/targetSdkVersion = 36/g' android/variables.gradle
-          fi
-          # 直接修改 app/build.gradle 里的具体数值
-          if [ -f "android/app/build.gradle" ]; then
-            sed -i 's/compileSdk .*/compileSdk 36/g' android/app/build.gradle
-            sed -i 's/targetSdk .*/targetSdk 36/g' android/app/build.gradle
-            sed -i 's/minSdk .*/minSdk 24/g' android/app/build.gradle
-          fi
-
-      - name: Build Debug APK
+      - name: Build Debug APK with Gradle
         working-directory: ./android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
