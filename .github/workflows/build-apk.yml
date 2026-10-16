@@ -24,23 +24,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Dependencies & Build Web
-        run: |
-          npm install --legacy-peer-deps
-          npm run build
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
 
-      - name: Initialize & Sync Capacitor Android
+      - name: Build Web App
+        run: npm run build
+
+      - name: Init and Sync Capacitor Android
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android --save-dev --legacy-peer-deps
-          if [ ! -f "capacitor.config.json" ] && [ ! -f "capacitor.config.ts" ]; then
-            npx cap init "AegisCold" "com.aegiscold.wallet" --web-dir dist
-          fi
-          if [ ! -d "android" ]; then
-            npx cap add android
-          fi
+          npx cap init "AegisCold" "com.aegiscold.wallet" --web-dir dist --yes || true
+          npx cap add android || true
           npx cap sync android
 
-      - name: Build Debug APK with Gradle
+      - name: Build Debug APK
         working-directory: ./android
         run: |
           chmod +x gradlew
