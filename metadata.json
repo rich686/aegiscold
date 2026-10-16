@@ -1,0 +1,8 @@
+{
+  "name": "Remix AegisCold - 比特币离线冷钱包与密钥工具",
+  "description": "专为安卓与移动冷端设计的极简主义比特币离线密钥生成与离线签名工具。支持BIP39高随机性助记词生成、BIP49(3开头)地址与自定义HD衍生路径、离线交易签名、观察钱包管理、多签脚本验证与费率精确估算，完全透明开源可审计。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
